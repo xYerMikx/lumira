@@ -28,6 +28,16 @@ export type OnboardingDataAction =
   | { type: 'profile_updated'; profile: MasterProfileView }
   | { type: 'schedule_updated'; schedule: MasterScheduleView }
 
+export const EMPTY_ONBOARDING_CATALOG_MESSAGE =
+  'Справочник районов и услуг ещё не загружен. Обновите страницу чуть позже.'
+
+export function isOnboardingCatalogReady(
+  districts: DistrictView[],
+  categories: ServiceCategoryView[],
+): boolean {
+  return districts.length > 0 && categories.length > 0
+}
+
 export function onboardingDataReducer(
   state: OnboardingDataState,
   action: OnboardingDataAction,
@@ -37,6 +47,13 @@ export function onboardingDataReducer(
       return { status: 'error', message: action.message }
 
     case 'load_succeeded':
+      if (!isOnboardingCatalogReady(action.districts, action.categories)) {
+        return {
+          status: 'error',
+          message: EMPTY_ONBOARDING_CATALOG_MESSAGE,
+        }
+      }
+
       return {
         status: 'ready',
         profile: action.profile,

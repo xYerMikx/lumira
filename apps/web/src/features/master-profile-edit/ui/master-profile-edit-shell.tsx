@@ -40,6 +40,21 @@ export function MasterProfileEditShell() {
           return
         }
 
+        if (!nextProfile || districtsResponse.districts.length === 0) {
+          const emptyCatalog = districtsResponse.districts.length === 0
+
+          setProfile(null)
+          setDistricts([])
+          setStatus('error')
+          setErrorMessage(
+            emptyCatalog
+              ? 'Справочник районов ещё не загружен. Обновите страницу чуть позже.'
+              : 'Не удалось загрузить данные профиля',
+          )
+
+          return
+        }
+
         setProfile(nextProfile)
         setDistricts(districtsResponse.districts)
         setStatus('success')

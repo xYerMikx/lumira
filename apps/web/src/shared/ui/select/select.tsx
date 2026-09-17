@@ -47,13 +47,14 @@ export function Select({
 
   const selected = options.find((option) => option.value === value) ?? null
   const selectedIndex = options.findIndex((option) => option.value === value)
+  const canOpen = !disabled && options.length > 0
 
   useEffect(() => {
     if (!open) {
       return
     }
 
-    const handlePointerDown = (event: MouseEvent) => {
+    const handlePointerDown = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
         setOpen(false)
       }
@@ -65,17 +66,17 @@ export function Select({
       }
     }
 
-    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('pointerdown', handlePointerDown)
     document.addEventListener('keydown', handleEscape)
 
     return () => {
-      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('pointerdown', handlePointerDown)
       document.removeEventListener('keydown', handleEscape)
     }
   }, [open])
 
   const openList = () => {
-    if (disabled) {
+    if (!canOpen) {
       return
     }
 
@@ -99,7 +100,7 @@ export function Select({
   }
 
   const handleTriggerKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (disabled) {
+    if (!canOpen) {
       return
     }
 
@@ -157,7 +158,7 @@ export function Select({
         aria-controls={listId}
         aria-label={ariaLabel}
         aria-invalid={invalid || undefined}
-        disabled={disabled}
+        disabled={!canOpen}
         onClick={handleTriggerClick}
         onKeyDown={handleTriggerKeyDown}
       >

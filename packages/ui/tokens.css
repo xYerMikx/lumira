@@ -47,6 +47,8 @@
   --radius-999: 999px;
 
   /* typography */
+  --text-11: 11px;
+  --text-11--line-height: 14px;
   --text-13: 13px;
   --text-13--line-height: 18px;
   --text-15: 15px;
