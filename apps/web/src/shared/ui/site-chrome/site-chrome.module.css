@@ -5,7 +5,6 @@
   width: min(1120px, 100%);
   margin-inline: auto;
   padding-inline: var(--spacing-16);
-  overflow-x: clip;
 }
 
 .body {
@@ -22,6 +21,7 @@
   justify-content: space-between;
   gap: var(--spacing-16);
   padding: var(--spacing-16) 0;
+  overflow-x: clip;
 }
 
 .brand {
