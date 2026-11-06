@@ -46,14 +46,9 @@ const links = [
       {
         links.map((link) => {
           const current = isNavCurrent(path, link.href)
-          const isHow = link.href === '/#how'
 
           return (
-            <a
-              class:list={[isHow && 'nav-how']}
-              href={link.href}
-              aria-current={current ? 'page' : undefined}
-            >
+            <a href={link.href} aria-current={current ? 'page' : undefined}>
               {link.label}
             </a>
           )
@@ -196,28 +191,6 @@ const links = [
     box-shadow: inset 0 calc(-1 * var(--spacing-2)) 0 var(--color-accent);
   }
 
-  .nav-how {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--spacing-40);
-    padding: 0 var(--spacing-16);
-    border-radius: var(--radius-8);
-    background: var(--color-success);
-    color: var(--color-on-accent);
-    font-weight: var(--font-weight-600);
-  }
-
-  .nav-how:hover {
-    background: color-mix(in srgb, var(--color-success) 88%, var(--color-text));
-    color: var(--color-on-accent);
-  }
-
-  .nav a.nav-how[aria-current='page'] {
-    color: var(--color-on-accent);
-    box-shadow: none;
-  }
-
   .nav-cta {
     color: var(--color-accent);
     font-weight: var(--font-weight-600);
@@ -249,15 +222,6 @@ const links = [
       box-shadow: none;
       border-left: var(--spacing-2) solid var(--color-accent);
       padding-left: var(--spacing-12);
-    }
-
-    .nav a.nav-how {
-      align-self: flex-start;
-    }
-
-    .nav a.nav-how[aria-current='page'] {
-      border-left: 0;
-      padding-left: var(--spacing-16);
     }
   }
 </style>
